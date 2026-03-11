@@ -7,7 +7,7 @@ from utils.compute_utils import transform_hidden_states, analyze_transformed_hid
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import numpy as np
 import random
-login(token="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") # add login token to hugging face
+login(token="<your token>") # add login token to hugging face
 # fix the seeds
 seed = 42
 torch.manual_seed(seed)
