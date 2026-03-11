@@ -56,6 +56,14 @@ if ! command -v parallel &> /dev/null; then
 fi
 
 # Run all commands in parallel using GNU Parallel
-nohup parallel --joblog parallel_log.txt --results parallel_results -j ${#DEVICES[@]} < $cmd_file
+while IFS= read -r line; do
+    echo "--- Starting job: $line ---"
+    eval "$line"
+    if [ $? -eq 0 ]; then
+        echo "--- Job finished successfully. ---"
+    else
+        echo "--- Job FAILED with exit code $?. Please check logs. ---"
+    fi
+done < "$cmd_file"
 
 echo "All jobs have been executed in parallel across ${#DEVICES[@]} devices."
